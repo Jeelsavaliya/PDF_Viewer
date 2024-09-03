@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<string>
+
+    <style>
+    #divPDFObject{
+        width : 900px;
+        height : 900px;
+    }
+    </style>
+
+<form method="post" asp-action="UploadPdf" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Enter your Pdf</label><br />
+        <input type="file" name="pdf" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+
+   
+</form>
+
+<table class="table" border="1">
+    <thead>
+    <th>File Name</th>
+    <th></th>
+    </thead>
+    <tbody>
+        @foreach (var path in Model)
+        {
+            <tr>
+                <td>@path</td>
+                <td><a href="#" class="lnkViewPDF" data-name="@path">View PDF</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<object id="divPDFObject" type="application/pdf"></object>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    
+        $(".lnkViewPDF").click(function (e) { 
+            debugger
+            e.preventDefault();
+            var fileName = $(this).data("name");
+            if(fileName){
+                $.ajax({
+                    type:"POST",
+                    url : "/Home/PDFView",
+                    beforeSend: function(xhr){
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    data: { FileName: fileName },
+                    success: function (response) {
+                        if (response.success) {
+                            var deserializeString = JSON.parse(response.data);
+                            $("#divPDFObject").empty();
+                            $("#divPDFObject").attr('data', deserializeString);
+                        }
+                        console.log(response,"success")
+                    },
+                    error: function(xhr, status, error){
+                        console.log(error);
+                    }
+                })
+            }
+        
+        });
+    
+    });
+</script>
