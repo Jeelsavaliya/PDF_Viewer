@@ -1,6 +1,52 @@
-﻿@{
+﻿@* @using TXTextControl.Web.MVC.DocumentViewer *@
+
+@{
     ViewData["Title"] = "Home Page";
 }
+
+@* <div class="row">
+    <div class="col-lg-3 col-md-5 col-sm-4 tx-sidebar-mm">
+        <h4>Upload PDF Documents</h4>
+        <p><strong>Drag and drop</strong> documents into the file upload dropzone or click the <em>Upload</em> button to load your PDF documents.</p>
+        <input type="file" id="files" class="prevent" style="" accept=".pdf">
+    </div>
+
+    <div class="col-lg-9 col-md-7 col-sm-8">
+        <div class="tx-container">
+            @Html.TXTextControl().DocumentViewer(settings =>
+                {
+                    settings.DocumentPath = "C:/Users/Jeel%20Savaliya/Downloads/test1.pdf";
+                    settings.Dock = DocumentViewerSettings.DockStyle.Fill;
+                    settings.IsSelectionActivated = true;
+                    settings.ShowThumbnailPane = true;
+                    settings.DocumentLoadSettings.PDFJS.BasePath = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.2.146";
+                }).Render()
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    document.getElementById("files").addEventListener('change', function () {
+        
+        var fileReader = new FileReader();
+
+        const documentLoadSettings = {
+            pdfjs: {
+                basePath: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.2.146"
+            }
+        };
+
+        fileReader.onload = function () {
+            TXDocumentViewer.loadDocument(fileReader.result.split(',')[1], "test.pdf", null, documentLoadSettings);
+        }
+
+        fileReader.readAsDataURL(this.files[0]);
+
+    })
+</script> *@
+
+
 @model List<string>
 
     <style>
@@ -21,10 +67,10 @@
    
 </form>
 
-<table class="table" border="1">
+ <table class="table" border="1" >
     <thead>
-    <th>File Name</th>
-    <th></th>
+        <th>File Name</th>
+        <th></th>
     </thead>
     <tbody>
         @foreach (var path in Model)

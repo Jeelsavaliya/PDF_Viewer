@@ -54,6 +54,12 @@ namespace PDF_Viewer.Controllers
             return RedirectPermanent("Index");
         }
 
+        /*[HttpPost]
+        public IActionResult PDFView()
+        {
+            return View();
+        }
+*/
         [HttpPost]
         public IActionResult PDFView(string fileName)
         {
@@ -73,7 +79,7 @@ namespace PDF_Viewer.Controllers
             string virtualPath = Url.Content(viewFileContent);
             string searializedString = JsonConvert.SerializeObject(virtualPath);
 
-            return new JsonResult(new { success = true, Data = searializedString});
+            return new JsonResult(new { success = true, Data = searializedString });
 
 
         }
