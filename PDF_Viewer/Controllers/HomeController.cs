@@ -22,7 +22,7 @@ namespace PDF_Viewer.Controllers
         {
             List<string> list = new List<string>();
 
-            string uploadedPath = Path.Combine(Directory.GetCurrentDirectory() , "Uploads");
+            string uploadedPath = Path.Combine(Directory.GetCurrentDirectory() , _environment.WebRootPath + "/Uploads");
             string[] filePaths = Directory.GetFiles(uploadedPath);
 
             foreach(var filePath in filePaths)
@@ -54,12 +54,7 @@ namespace PDF_Viewer.Controllers
             return RedirectPermanent("Index");
         }
 
-        /*[HttpPost]
-        public IActionResult PDFView()
-        {
-            return View();
-        }
-*/
+       
         [HttpPost]
         public IActionResult PDFView(string fileName)
         {
