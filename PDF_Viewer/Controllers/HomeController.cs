@@ -22,7 +22,14 @@ namespace PDF_Viewer.Controllers
         {
             List<string> list = new List<string>();
 
+
             string uploadedPath = Path.Combine(Directory.GetCurrentDirectory() , _environment.WebRootPath + "/Uploads");
+            
+            if (!Directory.Exists(uploadedPath))
+            {
+                Directory.CreateDirectory(uploadedPath);
+            }
+
             string[] filePaths = Directory.GetFiles(uploadedPath);
 
             foreach(var filePath in filePaths)
@@ -51,7 +58,7 @@ namespace PDF_Viewer.Controllers
                     Pdf.CopyTo(stream);
                 }
             }
-            return RedirectPermanent("Index");
+            return RedirectToAction("Index");
         }
 
        
