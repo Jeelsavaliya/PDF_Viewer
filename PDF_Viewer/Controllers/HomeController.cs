@@ -23,7 +23,7 @@ namespace PDF_Viewer.Controllers
             List<string> list = new List<string>();
 
 
-            string uploadedPath = Path.Combine(Directory.GetCurrentDirectory() , _environment.WebRootPath + "/Uploads");
+            string uploadedPath = Path.Combine(_environment.WebRootPath + "/Uploads");
             
             if (!Directory.Exists(uploadedPath))
             {
